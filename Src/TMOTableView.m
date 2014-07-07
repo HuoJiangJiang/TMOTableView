@@ -556,11 +556,13 @@
         [self.loadingView setAlpha:0.0];
         [self.failView setAlpha:0.0];
     }
+    if ([self.tableView isTableViewController]) {
+        self.tmpHeaderView = self.tableView.tableHeaderView;
+    }
 }
 
 - (void)start {
     if ([self.tableView isTableViewController]) {
-        self.tmpHeaderView = self.tableView.tableHeaderView;
         self.tableView.tableHeaderView = self.loadingView;
         self.loadingView.alpha = 1.0;
         self.tableView.scrollEnabled = NO;

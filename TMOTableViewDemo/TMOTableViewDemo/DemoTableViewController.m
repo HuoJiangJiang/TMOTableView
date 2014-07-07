@@ -151,14 +151,9 @@
 {
     static NSString *cellIdentifier = @"Cell";
     UITableViewCell *cell;
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0) {
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
-    }
-    else {
-        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
-        }
+    cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
     }
     
     cell.textLabel.text = [NSString stringWithFormat:@"Cell:%d", indexPath.row];
