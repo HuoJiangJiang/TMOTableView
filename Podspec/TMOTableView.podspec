@@ -22,5 +22,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/duowan/TMOTableView.git", :tag => "1.0.0" }
 
   s.source_files  = "Src", "Src/*.{h,m}"
+  
+  s.requires_arc = true
 
 end
