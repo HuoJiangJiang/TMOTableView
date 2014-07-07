@@ -5,6 +5,10 @@ TMOTableView includes RefreshControl LoadMoreControl FirstLoadControl, and you c
 
 # Usage
 
+## Pod
+
+`pod 'TMOTableView'`
+
 ## Subclass(Must Do)
 
 * Xib Or StoryBoard -> subclass UITableView To TMOTableView
