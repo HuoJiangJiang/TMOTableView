@@ -64,6 +64,8 @@
 		928577B2196A6BA100EB6191 /* DemoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoTableViewController.m; sourceTree = "<group>"; };
 		928577B4196A803600EB6191 /* DemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoViewController.h; sourceTree = "<group>"; };
 		928577B5196A803600EB6191 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
+		928577BB196A857600EB6191 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
+		928577BC196A858B00EB6191 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -317,6 +319,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				92857785196A510600EB6191 /* Base */,
+				928577BC196A858B00EB6191 /* en */,
 			);
 			name = Main_iPhone.storyboard;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				92857788196A510600EB6191 /* Base */,
+				928577BB196A857600EB6191 /* en */,
 			);
 			name = Main_iPad.storyboard;
 			sourceTree = "<group>";

@@ -37,6 +37,17 @@
     return self;
 }
 
+//If you have to support iOS5, You have to use loadView
+
+- (void)loadView {
+    TMOTableView *theTableView = [[TMOTableView alloc] initWithFrame:self.navigationController.view.bounds];
+    theTableView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+    theTableView.delegate = self;
+    theTableView.dataSource = self;
+    self.view = theTableView;
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -139,7 +150,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell;
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0) {
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    }
+    else {
+        cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:cellIdentifier];
+        }
+    }
     
     cell.textLabel.text = [NSString stringWithFormat:@"Cell:%d", indexPath.row];
     
