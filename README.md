@@ -15,6 +15,8 @@ TMOTableView includes RefreshControl LoadMoreControl FirstLoadControl, and you c
 
 ## Use FirstLoadControl
 
+![](https://raw.githubusercontent.com/duowan/TMOTableView/master/Wiki/1.gif)
+
 * You use FirstLoadControl to avoid null content showed, and perform good user experience. We provide a  default loadingView, and we provide a default failView. Further more, you could custom it.
 
 * It's really easy to use, see example code.
@@ -39,6 +41,8 @@ TMOTableView includes RefreshControl LoadMoreControl FirstLoadControl, and you c
 
 ## Use RefreshControl
 
+![](https://raw.githubusercontent.com/duowan/TMOTableView/master/Wiki/2.gif)
+
 * RefreshControl, you know that! Our RefreshControl support iOS5+.
 
 ---
@@ -53,6 +57,8 @@ TMOTableView includes RefreshControl LoadMoreControl FirstLoadControl, and you c
 ---
 
 ## Use LoadMoreControl
+
+![](https://raw.githubusercontent.com/duowan/TMOTableView/master/Wiki/3.gif)
 
 * You use LoadMoreControl to show more cells.
 
