@@ -7,126 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@class TMOTableView, TMORefreshControl, TMOLoadMoreControl;
-
-@protocol TMORefreshControlDelegate <NSObject>
-
-@optional
-
-/**
- *  返回一个下拉刷新自定义样式的UIView
- *
- *  @return UIView
- */
-- (UIView *)refreshView;
-
-/**
- *  当用户下拉tableView直至触发刷新操作的过程中，TMORefreshControl会进行回调
- *
- *  @param argCustomRefreshView 已经自定义的UIView
- *  @param argProcess           float 0~1
- */
-- (void)refreshViewInProcess:(UIView *)argCustomRefreshView withProcess:(CGFloat)argProcess;
-
-/**
- *  触发刷新后的回调
- *
- *  @param argCustomRefreshView 已经自定义的UIView
- */
-- (void)refreshViewWillStartRefresh:(UIView *)argCustomRefreshView;
-
-/**
- *  刷新完毕后的回调
- *
- *  @param argCustomRefreshView 已经自定义的UIView
- */
-- (void)refreshViewWillEndRefresh:(UIView *)argCustomRefreshView;
-
-@end
-
-@interface TMORefreshControl : UIView
-
-/**
- *  下拉刷新，自定义样式Delegate
- */
-@property (nonatomic, weak) id<TMORefreshControlDelegate> delegate;
-
-/**
- *  下拉刷新是否正在执行，只读
- */
-@property (nonatomic, readonly) BOOL isRefreshing;
-
-@end
-
-@protocol TMOLoadMoreControlDelegate <NSObject>
-
-@optional
-
-/**
- *  返回一个上拉加载自定式样式UIView
- *
- *  @return UIView
- */
-- (UIView *)loadMoreView;
-
-/**
- *  当上拉加载将要触发时，回调
- *
- *  @param argCustomView 已经自定义的UIView
- */
-- (void)loadMoreViewWillStartLoading:(UIView *)argCustomView;
-
-/**
- *  当上拉加载完成时，回调
- *
- *  @param argCustomView 已经自定义的UIView
- */
-- (void)loadMoreViewWillEndLoading:(UIView *)argCustomView;
-
-/**
- *  当上拉加载失败时，回调
- *
- *  @param argCustomView 已经自定义的UIView
- */
-- (void)loadMoreViewLoadFail:(UIView *)argCustomView;
-
-@end
-
-@interface TMOLoadMoreControl : UIView
-
-@property (nonatomic, weak) id<TMOLoadMoreControlDelegate> delegate;
-
-/**
- *  上拉加载是否正在执行，只读
- */
-@property (nonatomic, readonly) BOOL isLoading;
-
-/**
- *  上拉加载是否生效
- *  传入YES，上拉加载失效
- *  传入NO，上拉加载生效
- */
-@property (nonatomic, assign) BOOL isInvalid;
-
-/**
- *  上拉加载是否为失败状态
- *  传入YES，停止任何尝试
- *  传入NO，继续尝试加载
- */
-@property (nonatomic, assign) BOOL isFail;
-
-@end
-
-@interface TMOFirstLoadControl : NSObject
-
-@property (nonatomic, assign) BOOL allowRetry;
-
-- (void)start;
-- (void)done;
-- (void)fail;
-
-@end
+#import "TMOFirstLoadControl.h"
+#import "TMORefreshControl.h"
+#import "TMOLoadMoreControl.h"
 
 @interface TMOTableView : UITableView
 
@@ -211,5 +94,9 @@ typedef void(^TMOTableviewCallback)(TMOTableView *tableView, id viewController);
  *  @param argDelay    触发上拉加载后，延时执行Block
  */
 - (void)loadMoreWithCallback:(TMOTableviewCallback)argCallback withDelay:(NSTimeInterval)argDelay;
+
+- (UIViewController *)tableViewParentViewController;
+
+- (BOOL)isTableViewController;
 
 @end
