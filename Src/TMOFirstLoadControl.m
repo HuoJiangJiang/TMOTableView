@@ -15,16 +15,9 @@
 
 @interface TMOFirstLoadControl ()
 
-@property (nonatomic, assign) CGFloat yOffset;
 @property (nonatomic, weak) TMOTableView *tableView;
-@property (nonatomic, strong) TMOTableviewCallback callback;
-@property (nonatomic, strong) UIView *loadingView;
-@property (nonatomic, strong) UIView *failView;
 
 @property (nonatomic, strong) UIView *tmpHeaderView;//Use for UITableViewControll, save tableView.headerView TEMPERARY
-
-- (instancetype)initWithTableView:(TMOTableView *)argTabelView;
-- (void)setup;
 
 @end
 

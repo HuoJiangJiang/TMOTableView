@@ -7,19 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TMOTableViewDefines.h"
 #import "TMOFirstLoadControl.h"
 #import "TMORefreshControl.h"
 #import "TMOLoadMoreControl.h"
 
 @interface TMOTableView : UITableView
-
-/**
- *  Rrefresh & LoadMore Callback Block
- *
- *  @param tableView      使用此变量以避免循环引用，调用前请使用 tableView.isValid 检测 tableView 是否已经失效
- *  @param viewController 代表tableView的父级viewController，使用此变量以避免循环引用
- */
-typedef void(^TMOTableviewCallback)(TMOTableView *tableView, id viewController);
 
 /**
  *  tableView是否已经移出superView，若已经移出，则勿执行任何UI相关操作

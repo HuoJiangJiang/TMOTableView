@@ -7,10 +7,20 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TMOTableViewDefines.h"
+
+@class TMOTableView;
 
 @interface TMOFirstLoadControl : NSObject
 
+@property (nonatomic, strong) TMOTableviewCallback callback;
+@property (nonatomic, strong) UIView *loadingView;
+@property (nonatomic, strong) UIView *failView;
 @property (nonatomic, assign) BOOL allowRetry;
+@property (nonatomic, assign) CGFloat yOffset;
+
+- (instancetype)initWithTableView:(TMOTableView *)argTabelView;
+- (void)setup;
 
 - (void)start;
 - (void)done;

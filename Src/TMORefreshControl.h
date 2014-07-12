@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TMOTableViewDefines.h"
 
 @protocol TMORefreshControlDelegate <NSObject>
 
@@ -44,6 +45,16 @@
 @end
 
 @interface TMORefreshControl : UIView
+
+@property (nonatomic, strong) XHActivityIndicatorView *activityView;
+@property (nonatomic, strong) UIView *customView;
+@property (nonatomic, weak) TMOTableView *tableView;
+@property (nonatomic, strong) TMOTableviewCallback callback;
+@property (nonatomic, assign) NSTimeInterval delay;
+
+- (id)initWithTableView:(TMOTableView *)argTabelView;
+- (void)refreshAndScrollToTop;
+- (void)stop;
 
 /**
  *  下拉刷新，自定义样式Delegate

@@ -14,16 +14,6 @@
     CGFloat _controlViewHeight;
 }
 
-@property (nonatomic, strong) XHActivityIndicatorView *activityView;
-@property (nonatomic, strong) UIView *customView;
-@property (nonatomic, weak) TMOTableView *tableView;
-@property (nonatomic, strong) TMOTableviewCallback callback;
-@property (nonatomic, assign) NSTimeInterval delay;
-
-- (id)initWithTableView:(TMOTableView *)argTabelView;
-- (void)refreshAndScrollToTop;
-- (void)stop;
-
 @end
 
 @implementation TMORefreshControl

@@ -13,15 +13,7 @@
     CGFloat _controlViewHeight;
 }
 
-@property (nonatomic, strong) UIView *customView;
-@property (nonatomic, strong) UIView *retryView;
-@property (nonatomic, strong) UIActivityIndicatorView *activityView;
-@property (nonatomic, weak) TMOTableView *tableView;
-@property (nonatomic, strong) TMOTableviewCallback callback;
-@property (nonatomic, assign) NSTimeInterval delay;
 
-- (id)initWithTableView:(TMOTableView *)argTabelView;
-- (void)stop;
 
 @end
 
