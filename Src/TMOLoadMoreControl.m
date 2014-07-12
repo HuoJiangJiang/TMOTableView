@@ -11,13 +11,18 @@
 
 @interface TMOLoadMoreControl (){
     CGFloat _controlViewHeight;
+    BOOL _isInvalid;
+    BOOL _isFail;
+    BOOL _isCustomize;
 }
 
+@property (nonatomic, weak) TMOTableView *tableView;
 
+@property (nonatomic, strong) UIActivityIndicatorView *activityView;
+
+@property (nonatomic, strong) UIView *retryView;
 
 @end
-
-
 
 @interface TMOSVGArrowDownView : UIView
 
@@ -25,12 +30,20 @@
 
 @implementation TMOLoadMoreControl
 
+- (void)dealloc {
+    
+}
+
+- (void)removeObserver {
+    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
+}
+
 - (id)initWithTableView:(TMOTableView *)argTabelView {
     self = [super initWithFrame:CGRectMake(0, 0, argTabelView.frame.size.width, 44)];
     if (self) {
         self.tableView = argTabelView;
         [self defaultSetup];
-        self.isInvalid = NO;
+        [self invalid:NO hide:NO];
         [self.tableView addObserver:self
                          forKeyPath:@"contentOffset"
                             options:NSKeyValueObservingOptionNew
@@ -39,20 +52,22 @@
     return self;
 }
 
-- (void)setDelegate:(id<TMOLoadMoreControlDelegate>)delegate {
-    if (delegate != nil) {
-        _delegate = delegate;
+- (void)setLoadMoreView:(UIView *)loadMoreView {
+    if (loadMoreView != nil) {
+        _loadMoreView = loadMoreView;
         [self.retryView removeFromSuperview];
         [self.activityView removeFromSuperview];
-        self.customView = [[self delegate] loadMoreView];
-        [self addSubview:self.customView];
-        _controlViewHeight = self.customView.frame.size.height;
+        [self addSubview:self.loadMoreView];
+        _controlViewHeight = self.loadMoreView.frame.size.height;
         self.frame = CGRectMake(0, self.tableView.contentSize.height, self.tableView.frame.size.width, _controlViewHeight);
         [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, _controlViewHeight, 0)];
+        _isCustomize = YES;
     }
     else {
-        [self.customView removeFromSuperview];
+        _loadMoreView = nil;
+        [self.loadMoreView removeFromSuperview];
         [self defaultSetup];
+        _isCustomize = NO;
     }
 }
 
@@ -89,10 +104,15 @@
     return _activityView;
 }
 
-- (void)setIsInvalid:(BOOL)isInvalid {
+- (void)invalid:(BOOL)isInvalid hide:(BOOL)isHide {
     if (isInvalid) {
         _isInvalid = YES;
-        [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, 0, 0)];
+        if (isHide) {
+            [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, 0, 0)];
+        }
+        else {
+            [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, _controlViewHeight, 0)];
+        }
         [self stop];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self setAlpha:0.0];
@@ -107,13 +127,13 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
     if ([keyPath isEqualToString:@"contentOffset"]) {
-        if (!_isLoading && !self.isInvalid && !self.isFail &&
+        if (!_isLoading && !_isInvalid && !_isFail &&
             (self.tableView.contentSize.height - self.tableView.contentOffset.y) < self.tableView.frame.size.height + 20.0) {
             //执行block
             _isLoading = YES;
             [self start];
         }
-        else if (!_isLoading && !self.isInvalid && self.isFail &&
+        else if (!_isLoading && !_isInvalid && _isFail &&
                  (self.tableView.contentSize.height - self.tableView.contentOffset.y) < self.tableView.frame.size.height - 100) {
             //大力拉，重试
             _isFail = NO;
@@ -124,32 +144,56 @@
 }
 
 - (void)start {
-    if (self.delegate != nil && [self.delegate respondsToSelector:@selector(loadMoreViewWillStartLoading:)]) {
-        [[self delegate] loadMoreViewWillStartLoading:self.customView];
+    
+    if (self.startBlock != nil) {
+        self.startBlock(self.loadMoreView);
     }
-    else if (self.delegate == nil) {
+    else if (!_isCustomize) {
         [self.retryView setAlpha:0.0];
         [self.activityView setAlpha:1.0];
     }
-    if (self.callback != nil) {
-        if (self.delay > 0) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                self.callback(self.tableView, [self.tableView tableViewParentViewController]);
+    
+    if (self.loadMoreCallback != nil) {
+        if (self.loadMoreDelay > 0) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.loadMoreDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.loadMoreCallback(self.tableView, self.tableView.parentViewController);
             });
         }
         else {
-            self.callback(self.tableView, [self.tableView tableViewParentViewController]);
+            self.loadMoreCallback(self.tableView, self.tableView.parentViewController);
         }
+    }
+}
+
+- (void)done {
+    if (!self.tableView.isValid) {
+        return;
+    }
+    [self.tableView reloadData];
+    [self performSelector:@selector(stop) withObject:nil afterDelay:0.5];
+}
+
+- (void)fail {
+    _isFail = YES;
+    _isLoading = NO;
+    [self setAlpha:1.0];
+    
+    if (self.failBlock != nil) {
+        self.failBlock(self.loadMoreView);
+    }
+    else if (!_isCustomize) {
+        [self.retryView setAlpha:1.0];
+        [self.activityView setAlpha:0.0];
     }
 }
 
 - (void)stop {
     [self setAlpha:0.0];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(loadMoreViewWillEndLoading:)]) {
-            [[self delegate] loadMoreViewWillEndLoading:self.customView];
+        if (self.stopBlock != nil) {
+            self.stopBlock(self.loadMoreView);
         }
-        else if (self.delegate == nil) {
+        else if (!_isCustomize) {
             [self.activityView setAlpha:0.0];
             [self.retryView setAlpha:1.0];
         }
@@ -158,35 +202,13 @@
     });
 }
 
-- (void)setIsFail:(BOOL)isFail {
-    if (isFail) {
-        //do Fail
-        _isFail = YES;
-        _isLoading = NO;
-        [self setAlpha:1.0];
-        if (self.delegate != nil && [self.delegate respondsToSelector:@selector(loadMoreViewLoadFail:)]) {
-            [[self delegate] loadMoreViewLoadFail:self.customView];
-        }
-        else {
-            [self.retryView setAlpha:1.0];
-            [self.activityView setAlpha:0.0];
-        }
-    }
-    else {
-        //retry
-        _isFail = NO;
-        [self setAlpha:1.0];
-        [self start];
-    }
-}
-
 - (void)handleRetryButtonTapped {
-    self.isFail = NO;
+    _isFail = NO;
+    [self setAlpha:1.0];
+    [self start];
 }
 
 @end
-
-
 
 
 @implementation TMOSVGArrowDownView

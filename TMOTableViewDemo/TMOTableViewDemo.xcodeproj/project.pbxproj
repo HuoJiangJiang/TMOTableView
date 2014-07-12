@@ -183,14 +183,14 @@
 			isa = PBXGroup;
 			children = (
 				F02A2B441970D4D0000DF0A1 /* TMOTableViewDefines.h */,
+				928577AB196A514200EB6191 /* TMOTableView.h */,
+				928577AC196A514200EB6191 /* TMOTableView.m */,
 				F0B07169196ED62F00A7EBA5 /* TMOFirstLoadControl.h */,
 				F0B0716A196ED62F00A7EBA5 /* TMOFirstLoadControl.m */,
 				F0B0716C196ED79F00A7EBA5 /* TMORefreshControl.h */,
 				F0B0716D196ED79F00A7EBA5 /* TMORefreshControl.m */,
 				F0B0716F196ED84B00A7EBA5 /* TMOLoadMoreControl.h */,
 				F0B07170196ED84B00A7EBA5 /* TMOLoadMoreControl.m */,
-				928577AB196A514200EB6191 /* TMOTableView.h */,
-				928577AC196A514200EB6191 /* TMOTableView.m */,
 				928577AD196A514200EB6191 /* XHActivityIndicatorView.h */,
 				928577AE196A514200EB6191 /* XHActivityIndicatorView.m */,
 			);

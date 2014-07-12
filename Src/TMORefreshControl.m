@@ -12,7 +12,12 @@
 
 @interface TMORefreshControl (){
     CGFloat _controlViewHeight;
+    BOOL _isCustomize;
 }
+
+@property (nonatomic, strong) XHActivityIndicatorView *activityView;
+
+@property (nonatomic, weak) TMOTableView *tableView;
 
 @end
 
@@ -20,6 +25,10 @@
 
 - (void)dealloc {
     
+}
+
+- (void)removeObserver {
+    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
 }
 
 - (instancetype)initWithTableView:(TMOTableView *)argTabelView {
@@ -33,19 +42,20 @@
     return self;
 }
 
-- (void)setDelegate:(id<TMORefreshControlDelegate>)delegate {
-    if (delegate != nil) {
-        _delegate = delegate;
-        [self.activityView.superview removeFromSuperview];
-        self.customView = [self.delegate refreshView];
-        _controlViewHeight = self.customView.frame.size.height;
-        self.frame = CGRectMake(0, 0, self.tableView.frame.size.width, _controlViewHeight);
-        [self addSubview:self.customView];
+- (void)setRefreshView:(UIView *)refreshView {
+    if (refreshView == nil) {
+        _refreshView = nil;
+        [self.refreshView removeFromSuperview];
+        [self defaultSetup];
+        _isCustomize = NO;
     }
     else {
-        [self.customView removeFromSuperview];
-        _delegate = nil;
-        [self defaultSetup];
+        _refreshView = refreshView;
+        [self.activityView.superview removeFromSuperview];
+        _controlViewHeight = self.refreshView.frame.size.height;
+        self.frame = CGRectMake(0, 0, self.tableView.frame.size.width, _controlViewHeight);
+        [self addSubview:self.refreshView];
+        _isCustomize = YES;
     }
 }
 
@@ -88,30 +98,30 @@
         
         if (self.tableView.contentOffset.y < -_controlViewHeight && !_isRefreshing) {
             _isRefreshing = YES;
-            if (self.delegate != nil &&
-                [self.delegate respondsToSelector:@selector(refreshViewWillStartRefresh:)]) {
-                [[self delegate] refreshViewWillStartRefresh:self.customView];
+            
+            if (self.startBlock != nil) {
+                self.startBlock(self.refreshView);
             }
-            else if (self.delegate == nil) {
+            else if (!_isCustomize) {
                 [self.activityView beginRefreshing];
             }
+            
             [self start];
         }
         
         if (!self.isRefreshing) {
             CGFloat currentY = -MIN(0.0, self.tableView.contentOffset.y);
             if (currentY < 16.0) {
-                if (self.delegate == nil) {
+                if (!_isCustomize) {
                     [self.activityView setTimeOffset:0.0];
                 }
             }
             else {
                 CGFloat offset = (MIN(currentY, _controlViewHeight) - 16.0) / (_controlViewHeight - 16.0);
-                if (self.delegate != nil &&
-                    [self.delegate respondsToSelector:@selector(refreshViewInProcess:withProcess:)]) {
-                    [[self delegate] refreshViewInProcess:self.customView withProcess:offset];
+                if (self.processingBlock != nil) {
+                    self.processingBlock(self.refreshView, offset);
                 }
-                else if (self.delegate == nil) {
+                else if (!_isCustomize) {
                     [self.activityView setTimeOffset:offset];
                 }
             }
@@ -134,15 +144,42 @@
     }
 }
 
+- (void)start {
+    if (self.refreshCallback != nil) {
+        if (self.refreshDelay > 0) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.refreshDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                self.refreshCallback(self.tableView, self.tableView.parentViewController);
+            });
+        }
+        else {
+            self.refreshCallback(self.tableView, self.tableView.parentViewController);
+        }
+    }
+}
+
+- (void)done {
+    if (!self.tableView.isValid) {
+        return;
+    }
+    [self.tableView reloadData];
+    [self performSelector:@selector(stop) withObject:nil afterDelay:0.5];
+}
+
+- (void)fail {
+    [self stop];
+}
+
 - (void)stop {
     _isRefreshing = NO;
-    if (self.delegate != nil && [[self delegate] respondsToSelector:@selector(refreshViewWillEndRefresh:)]) {
-        [self.delegate refreshViewWillEndRefresh:self.customView];
+    
+    if (self.stopBlock != nil) {
+        self.stopBlock(self.refreshView);
     }
-    else if (self.delegate == nil) {
+    else if (!_isCustomize) {
         [self.activityView setTimeOffset:0.0];
         [self.activityView endRefreshing];
     }
+    
     [UIView animateWithDuration:0.15 animations:^{
         [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, self.tableView.contentInset.bottom, 0)];
     }];
@@ -151,11 +188,11 @@
 - (void)refreshAndScrollToTop {
     if (!self.isRefreshing) {
         _isRefreshing = YES;
-        if (self.delegate != nil &&
-            [self.delegate respondsToSelector:@selector(refreshViewWillStartRefresh:)]) {
-            [[self delegate] refreshViewWillStartRefresh:self.customView];
+        
+        if (self.startBlock != nil) {
+            self.startBlock(self.refreshView);
         }
-        else if (self.delegate == nil) {
+        else if (!_isCustomize) {
             [self.activityView setTimeOffset:1.0];
             [self.activityView beginRefreshing];
         }
@@ -167,19 +204,6 @@
                                                              0)];
             [self.tableView setContentOffset:CGPointMake(0, -_controlViewHeight) animated:YES];
         }];
-    }
-}
-
-- (void)start {
-    if (self.callback != nil) {
-        if (self.delay > 0) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                self.callback(self.tableView, [self.tableView tableViewParentViewController]);
-            });
-        }
-        else {
-            self.callback(self.tableView, [self.tableView tableViewParentViewController]);
-        }
     }
 }
 

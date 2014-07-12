@@ -7,11 +7,6 @@
 //
 
 #import "TMOTableView.h"
-#import "XHActivityIndicatorView.h"
-
-
-
-
 
 @interface TMOTableView ()
 
@@ -19,63 +14,16 @@
 
 @implementation TMOTableView
 
+
+#pragma mark - Override Super Class
+
 - (void)dealloc {
     if (self.myRefreshControl != nil) {
-        [self removeObserver:self.myRefreshControl forKeyPath:@"contentOffset"];
+        [self.myRefreshControl removeObserver];
     }
     if (self.myLoadMoreControl != nil) {
-        [self removeObserver:self.myLoadMoreControl forKeyPath:@"contentOffset"];
+        [self.myLoadMoreControl removeObserver];
     }
-}
-
-- (id)init {
-    self = [super init];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    self = [super initWithCoder:aDecoder];
-    if (self) {
-        [self setup];
-    }
-    return self;
-}
-
-- (void)firstLoadWithBlock:(TMOTableviewCallback)argBlock
-           withLoadingView:(UIView *)argLoadingView
-              withFailView:(UIView *)argFailView {
-    _myFirstLoadControl = [[TMOFirstLoadControl alloc] initWithTableView:self];
-    self.myFirstLoadControl.callback = argBlock;
-    self.myFirstLoadControl.loadingView = argLoadingView;
-    self.myFirstLoadControl.failView = argFailView;
-    [self.myFirstLoadControl setup];
-    [self.myFirstLoadControl start];
-}
-
-- (void)firstLoadWithBlock:(TMOTableviewCallback)argBlock
-               withYOffset:(CGFloat)argYOffset {
-    _myFirstLoadControl = [[TMOFirstLoadControl alloc] initWithTableView:self];
-    self.myFirstLoadControl.callback = argBlock;
-    self.myFirstLoadControl.yOffset = argYOffset;
-    [self.myFirstLoadControl setup];
-    [self.myFirstLoadControl start];
-}
-
-- (void)setup {
-}
-
-- (BOOL)isValid {
-    if ([self isTableViewController]) {
-        return YES;
-    }
-    return self.superview != nil;
-}
-
-- (BOOL)isTableViewController {
-    return [[self nextResponder] isKindOfClass:[UITableViewController class]];
 }
 
 - (void)reloadData {
@@ -93,54 +41,20 @@
     }
 }
 
-- (void)refreshDone {
-    if (!self.isValid) {
-        return;
-    }
-    [self reloadData];
-    [self.myRefreshControl performSelector:@selector(stop) withObject:nil afterDelay:0.5];
-}
+#pragma mark - Implement of TMOTableView
 
-- (void)loadMoreDone {
-    if (!self.isValid) {
-        return;
-    }
-    if (self.myLoadMoreControl != nil && self.myLoadMoreControl.isInvalid == YES) {
-        [self.myLoadMoreControl stop];
-        return;
-    }
-    [self reloadData];
-    [self.myLoadMoreControl stop];
-}
-
-- (void)refreshWithCallback:(TMOTableviewCallback)argCallback withDelay:(NSTimeInterval)argDelay {
-    _myRefreshControl = [[TMORefreshControl alloc] initWithTableView:self];
-    [self.myRefreshControl setDelay:argDelay];
-    [self.myRefreshControl setCallback:argCallback];
+- (BOOL)isValid {
     if ([self isTableViewController]) {
-        [self addSubview:self.myRefreshControl];
+        return self.parentViewController != nil;
     }
-    else {
-        [self.superview addSubview:self.myRefreshControl];
-        [self.superview bringSubviewToFront:self];
-        [self setBackgroundColor:[UIColor clearColor]];
-    }
+    return self.superview != nil;
 }
 
-- (void)refreshAndScrollToTop {
-    if (self.myRefreshControl != nil) {
-        [self.myRefreshControl refreshAndScrollToTop];
-    }
+- (BOOL)isTableViewController {
+    return [[self nextResponder] isKindOfClass:[UITableViewController class]];
 }
 
-- (void)loadMoreWithCallback:(TMOTableviewCallback)argCallback withDelay:(NSTimeInterval)argDelay {
-    _myLoadMoreControl = [[TMOLoadMoreControl alloc] initWithTableView:self];
-    [self.myLoadMoreControl setDelay:argDelay];
-    [self.myLoadMoreControl setCallback:argCallback];
-    [self addSubview:self.myLoadMoreControl];
-}
-
-- (UIViewController *)tableViewParentViewController {
+- (UIViewController *)parentViewController {
     if ([self isTableViewController]) {
         return (UIViewController *)[self nextResponder];
     }
@@ -151,6 +65,64 @@
         }
     }
     return nil;
+}
+
+- (void)firstLoadWithBlock:(TMOTableviewCallback)argBlock
+           withLoadingView:(UIView *)argLoadingView
+              withFailView:(UIView *)argFailView {
+    _myFirstLoadControl = [[TMOFirstLoadControl alloc] initWithTableView:self];
+    self.myFirstLoadControl.callback = argBlock;
+    self.myFirstLoadControl.loadingView = argLoadingView;
+    self.myFirstLoadControl.failView = argFailView;
+}
+
+- (void)firstLoadWithBlock:(TMOTableviewCallback)argBlock
+               withYOffset:(CGFloat)argYOffset {
+    _myFirstLoadControl = [[TMOFirstLoadControl alloc] initWithTableView:self];
+    self.myFirstLoadControl.callback = argBlock;
+    self.myFirstLoadControl.yOffset = argYOffset;
+}
+
+//
+//- (void)refreshDone {
+//    if (!self.isValid) {
+//        return;
+//    }
+//    [self reloadData];
+//    [self.myRefreshControl performSelector:@selector(stop) withObject:nil afterDelay:0.5];
+//}
+//
+//- (void)loadMoreDone {
+//    if (!self.isValid) {
+//        return;
+//    }
+//    if (self.myLoadMoreControl != nil && self.myLoadMoreControl.isInvalid == YES) {
+//        [self.myLoadMoreControl stop];
+//        return;
+//    }
+//    [self reloadData];
+//    [self.myLoadMoreControl stop];
+//}
+
+- (void)refreshWithCallback:(TMOTableviewCallback)argCallback withDelay:(NSTimeInterval)argDelay {
+    _myRefreshControl = [[TMORefreshControl alloc] initWithTableView:self];
+    [self.myRefreshControl setRefreshDelay:argDelay];
+    [self.myRefreshControl setRefreshCallback:argCallback];
+    if (self.isTableViewController) {
+        [self addSubview:self.myRefreshControl];
+    }
+    else {
+        [self.superview addSubview:self.myRefreshControl];
+        [self.superview bringSubviewToFront:self];
+        [self setBackgroundColor:[UIColor clearColor]];
+    }
+}
+
+- (void)loadMoreWithCallback:(TMOTableviewCallback)argCallback withDelay:(NSTimeInterval)argDelay {
+    _myLoadMoreControl = [[TMOLoadMoreControl alloc] initWithTableView:self];
+    [self.myLoadMoreControl setLoadMoreDelay:argDelay];
+    [self.myLoadMoreControl setLoadMoreCallback:argCallback];
+    [self addSubview:self.myLoadMoreControl];
 }
 
 @end

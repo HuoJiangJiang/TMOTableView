@@ -9,7 +9,7 @@
 #import "DemoTableViewController.h"
 #import "TMOTableView.h"
 
-@interface DemoTableViewController ()<TMOLoadMoreControlDelegate, TMORefreshControlDelegate>
+@interface DemoTableViewController ()
 
 @property (nonatomic, assign) NSUInteger numberOfRowsInSection0;
 @property (nonatomic, assign) NSUInteger numberOfRowsInSection1;
@@ -55,9 +55,6 @@
     [self setupRefreshControl];
     [self setupLoadMore];
     
-//    self.tableView.myRefreshControl.delegate = self;//Set Delegate so customize refersh view.
-//    self.tableView.myLoadMoreControl.delegate = self;//The same!
-    
 }
 
 - (void)setupFirstLoad {
@@ -98,14 +95,14 @@
     [self.tableView refreshWithCallback:^(TMOTableView *tableView, DemoTableViewController *viewController) {
         viewController.numberOfRowsInSection0 = arc4random() % 10;
         viewController.numberOfRowsInSection1 = arc4random() % 10;
-        [tableView refreshDone];
+        [tableView.myRefreshControl done];
     } withDelay:1.5];//Really easy to use.
     //Don't use self in block! Use tableView, viewController. It will 'Circular references'.
     //不要在Block中使用self!使用tableView和viewController代替，或者传入一个weak self，否则会导致循环引用。
 }
 
 - (IBAction)doRefresh:(id)sender {
-    [self.tableView refreshAndScrollToTop];
+    [self.tableView.myRefreshControl start];
 }
 
 - (void)setupLoadMore {
@@ -113,11 +110,11 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (arc4random() % 10 < 4) {
                 //try to fail
-                tableView.myLoadMoreControl.isFail = YES;
+                [tableView.myLoadMoreControl fail];
             }
             else {
                 viewController.numberOfRowsInSection1 += 10;
-                [tableView loadMoreDone];
+                [tableView.myLoadMoreControl done];
             }
         });
     } withDelay:0.0];

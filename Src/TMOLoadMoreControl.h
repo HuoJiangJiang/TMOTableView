@@ -9,71 +9,41 @@
 #import <UIKit/UIKit.h>
 #import "TMOTableViewDefines.h"
 
-@protocol TMOLoadMoreControlDelegate <NSObject>
-
-@optional
-
-/**
- *  返回一个上拉加载自定式样式UIView
- *
- *  @return UIView
- */
-- (UIView *)loadMoreView;
-
-/**
- *  当上拉加载将要触发时，回调
- *
- *  @param argCustomView 已经自定义的UIView
- */
-- (void)loadMoreViewWillStartLoading:(UIView *)argCustomView;
-
-/**
- *  当上拉加载完成时，回调
- *
- *  @param argCustomView 已经自定义的UIView
- */
-- (void)loadMoreViewWillEndLoading:(UIView *)argCustomView;
-
-/**
- *  当上拉加载失败时，回调
- *
- *  @param argCustomView 已经自定义的UIView
- */
-- (void)loadMoreViewLoadFail:(UIView *)argCustomView;
-
-@end
-
 @interface TMOLoadMoreControl : UIView
 
-@property (nonatomic, strong) UIView *customView;
-@property (nonatomic, strong) UIView *retryView;
-@property (nonatomic, strong) UIActivityIndicatorView *activityView;
-@property (nonatomic, weak) TMOTableView *tableView;
-@property (nonatomic, strong) TMOTableviewCallback callback;
-@property (nonatomic, assign) NSTimeInterval delay;
-
-- (id)initWithTableView:(TMOTableView *)argTabelView;
-- (void)stop;
-
-@property (nonatomic, weak) id<TMOLoadMoreControlDelegate> delegate;
-
-/**
- *  上拉加载是否正在执行，只读
- */
 @property (nonatomic, readonly) BOOL isLoading;
 
-/**
- *  上拉加载是否生效
- *  传入YES，上拉加载失效
- *  传入NO，上拉加载生效
- */
-@property (nonatomic, assign) BOOL isInvalid;
+@property (nonatomic, strong) UIView *loadMoreView;
 
-/**
- *  上拉加载是否为失败状态
- *  传入YES，停止任何尝试
- *  传入NO，继续尝试加载
- */
-@property (nonatomic, assign) BOOL isFail;
+@property (nonatomic, strong) TMOTableviewCallback loadMoreCallback;
+
+@property (nonatomic, strong) TMOLoadMoreStartBlock startBlock;
+
+@property (nonatomic, strong) TMOLoadMoreStopBlock stopBlock;
+
+@property (nonatomic, strong) TMOLoadMoreFailBlock failBlock;
+
+@property (nonatomic, assign) NSTimeInterval loadMoreDelay;
+
+- (id)initWithTableView:(TMOTableView *)argTabelView;
+
+- (void)start;
+
+- (void)done;
+
+- (void)fail;
+
+- (void)handleRetryButtonTapped;
+
+- (void)invalid:(BOOL)isInvalid hide:(BOOL)isHide;
+
+- (void)removeObserver;
+
+//- (void)stop;
+
+//@property (nonatomic, weak) id<TMOLoadMoreControlDelegate> delegate;
+
+
+
 
 @end

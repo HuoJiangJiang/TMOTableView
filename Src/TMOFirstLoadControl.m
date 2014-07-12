@@ -28,6 +28,8 @@
     if (self) {
         self.yOffset = 44.0;
         self.tableView = argTabelView;
+        [self setup];
+        [self performSelector:@selector(start) withObject:nil afterDelay:0.05];
     }
     return self;
 }
@@ -57,7 +59,7 @@
     }
     TMOTableviewCallback callback = self.callback;
     if (callback != nil) {
-        callback(self.tableView, [self.tableView tableViewParentViewController]);
+        callback(self.tableView, self.tableView.parentViewController);
     }
 }
 
