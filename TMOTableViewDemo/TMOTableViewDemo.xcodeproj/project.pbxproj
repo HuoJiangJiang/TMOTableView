@@ -25,6 +25,9 @@
 		928577B0196A514200EB6191 /* XHActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 928577AE196A514200EB6191 /* XHActivityIndicatorView.m */; };
 		928577B3196A6BA100EB6191 /* DemoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928577B2196A6BA100EB6191 /* DemoTableViewController.m */; };
 		928577B6196A803600EB6191 /* DemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 928577B5196A803600EB6191 /* DemoViewController.m */; };
+		F0B0716B196ED62F00A7EBA5 /* TMOFirstLoadControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F0B0716A196ED62F00A7EBA5 /* TMOFirstLoadControl.m */; };
+		F0B0716E196ED79F00A7EBA5 /* TMORefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F0B0716D196ED79F00A7EBA5 /* TMORefreshControl.m */; };
+		F0B07171196ED84B00A7EBA5 /* TMOLoadMoreControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F0B07170196ED84B00A7EBA5 /* TMOLoadMoreControl.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +69,13 @@
 		928577B5196A803600EB6191 /* DemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoViewController.m; sourceTree = "<group>"; };
 		928577BB196A857600EB6191 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main_iPad.storyboard; sourceTree = "<group>"; };
 		928577BC196A858B00EB6191 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main_iPhone.storyboard; sourceTree = "<group>"; };
+		F02A2B441970D4D0000DF0A1 /* TMOTableViewDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOTableViewDefines.h; sourceTree = "<group>"; };
+		F0B07169196ED62F00A7EBA5 /* TMOFirstLoadControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOFirstLoadControl.h; sourceTree = "<group>"; };
+		F0B0716A196ED62F00A7EBA5 /* TMOFirstLoadControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFirstLoadControl.m; sourceTree = "<group>"; };
+		F0B0716C196ED79F00A7EBA5 /* TMORefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMORefreshControl.h; sourceTree = "<group>"; };
+		F0B0716D196ED79F00A7EBA5 /* TMORefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMORefreshControl.m; sourceTree = "<group>"; };
+		F0B0716F196ED84B00A7EBA5 /* TMOLoadMoreControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOLoadMoreControl.h; sourceTree = "<group>"; };
+		F0B07170196ED84B00A7EBA5 /* TMOLoadMoreControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOLoadMoreControl.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,8 +182,15 @@
 		928577AA196A514200EB6191 /* Src */ = {
 			isa = PBXGroup;
 			children = (
+				F02A2B441970D4D0000DF0A1 /* TMOTableViewDefines.h */,
 				928577AB196A514200EB6191 /* TMOTableView.h */,
 				928577AC196A514200EB6191 /* TMOTableView.m */,
+				F0B07169196ED62F00A7EBA5 /* TMOFirstLoadControl.h */,
+				F0B0716A196ED62F00A7EBA5 /* TMOFirstLoadControl.m */,
+				F0B0716C196ED79F00A7EBA5 /* TMORefreshControl.h */,
+				F0B0716D196ED79F00A7EBA5 /* TMORefreshControl.m */,
+				F0B0716F196ED84B00A7EBA5 /* TMOLoadMoreControl.h */,
+				F0B07170196ED84B00A7EBA5 /* TMOLoadMoreControl.m */,
 				928577AD196A514200EB6191 /* XHActivityIndicatorView.h */,
 				928577AE196A514200EB6191 /* XHActivityIndicatorView.m */,
 			);
@@ -280,11 +297,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				928577AF196A514200EB6191 /* TMOTableView.m in Sources */,
+				F0B0716B196ED62F00A7EBA5 /* TMOFirstLoadControl.m in Sources */,
 				92857783196A510600EB6191 /* AppDelegate.m in Sources */,
 				928577B3196A6BA100EB6191 /* DemoTableViewController.m in Sources */,
 				928577B6196A803600EB6191 /* DemoViewController.m in Sources */,
 				9285777F196A510600EB6191 /* main.m in Sources */,
+				F0B0716E196ED79F00A7EBA5 /* TMORefreshControl.m in Sources */,
 				928577B0196A514200EB6191 /* XHActivityIndicatorView.m in Sources */,
+				F0B07171196ED84B00A7EBA5 /* TMOLoadMoreControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,6 +525,7 @@
 				928577A6196A510600EB6191 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		928577A7196A510600EB6191 /* Build configuration list for PBXNativeTarget "TMOTableViewDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -513,6 +534,7 @@
 				928577A9196A510600EB6191 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
