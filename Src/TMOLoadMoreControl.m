@@ -105,14 +105,14 @@
         _isInvalid = YES;
         if (isHide) {
             [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, 0, 0)];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [self setAlpha:0.0];
+            });
         }
         else {
             [self.tableView setContentInset:UIEdgeInsetsMake(self.tableView.contentInset.top, 0, _controlViewHeight, 0)];
         }
         [self stop];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self setAlpha:0.0];
-        });
     }
     else {
         _isInvalid = NO;
@@ -166,7 +166,7 @@
         return;
     }
     [self.tableView reloadData];
-    [self performSelector:@selector(stop) withObject:nil afterDelay:0.5];
+    [self stop];
 }
 
 - (void)fail {
@@ -185,14 +185,14 @@
 
 - (void)stop {
     [self setAlpha:0.0];
+    if (self.stopBlock != nil) {
+        self.stopBlock(self.loadMoreView);
+    }
+    else if (!_isCustomize) {
+        [self.activityView setAlpha:0.0];
+        [self.retryView setAlpha:1.0];
+    }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        if (self.stopBlock != nil) {
-            self.stopBlock(self.loadMoreView);
-        }
-        else if (!_isCustomize) {
-            [self.activityView setAlpha:0.0];
-            [self.retryView setAlpha:1.0];
-        }
         [self setAlpha:1.0];
         _isLoading = NO;
     });

@@ -17,11 +17,19 @@
 
 @property (nonatomic, strong) TMOTableviewCallback loadMoreCallback;
 
+- (void)setLoadMoreCallback:(TMOTableviewCallback)loadMoreCallback;
+
 @property (nonatomic, strong) TMOLoadMoreStartBlock startBlock;
+
+- (void)setStartBlock:(TMOLoadMoreStartBlock)startBlock;
 
 @property (nonatomic, strong) TMOLoadMoreStopBlock stopBlock;
 
+- (void)setStopBlock:(TMOLoadMoreStopBlock)stopBlock;
+
 @property (nonatomic, strong) TMOLoadMoreFailBlock failBlock;
+
+- (void)setFailBlock:(TMOLoadMoreFailBlock)failBlock;
 
 @property (nonatomic, assign) NSTimeInterval loadMoreDelay;
 

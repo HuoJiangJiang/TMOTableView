@@ -17,11 +17,19 @@
 
 @property (nonatomic, strong) TMOTableviewCallback refreshCallback;
 
+- (void)setRefreshCallback:(TMOTableviewCallback)refreshCallback;
+
 @property (nonatomic, strong) TMORefreshProcessingBlock processingBlock;
+
+- (void)setProcessingBlock:(TMORefreshProcessingBlock)processingBlock;
 
 @property (nonatomic, strong) TMORefreshStartBlock startBlock;
 
+- (void)setStartBlock:(TMORefreshStartBlock)startBlock;
+
 @property (nonatomic, strong) TMORefreshStopBlock stopBlock;
+
+- (void)setStopBlock:(TMORefreshStopBlock)stopBlock;
 
 @property (nonatomic, assign) NSTimeInterval refreshDelay;
 
@@ -32,6 +40,8 @@
 - (void)done;
 
 - (void)fail;
+
+- (void)refreshAndScrollToTop;
 
 @end
 

@@ -8,6 +8,7 @@
 
 #import "DemoTableViewController.h"
 #import "TMOTableView.h"
+#import "TMOTableViewDefines.h"
 
 @interface DemoTableViewController ()
 
@@ -37,7 +38,7 @@
     return self;
 }
 
-//If you have to support iOS5, You have to use loadView
+//If you have to support iOS5 & StoryBoard, You have to use loadView
 
 - (void)loadView {
     TMOTableView *theTableView = [[TMOTableView alloc] initWithFrame:self.navigationController.view.bounds];
@@ -54,7 +55,6 @@
     [self setupFirstLoad];//When set up finished, it will execute Immediately.
     [self setupRefreshControl];
     [self setupLoadMore];
-    
 }
 
 - (void)setupFirstLoad {
@@ -75,7 +75,7 @@
     
     [self.tableView firstLoadWithBlock:^(TMOTableView *tableView, DemoTableViewController *viewController) {
         //do something load data jobs
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (arc4random() % 10 < 3) {
                 //We try to make load data jobs fail, and you can see what happen.
                 [tableView.myFirstLoadControl fail];
@@ -99,10 +99,35 @@
     } withDelay:1.5];//Really easy to use.
     //Don't use self in block! Use tableView, viewController. It will 'Circular references'.
     //不要在Block中使用self!使用tableView和viewController代替，或者传入一个weak self，否则会导致循环引用。
+    
+    
+    //Here is a custom refreshControl
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView.myRefreshControl setRefreshView:[self refreshView]];
+        [self.tableView.myRefreshControl setProcessingBlock:^(UIView *refreshView, CGFloat progress) {
+            UIProgressView *progessView = (UIProgressView *)[refreshView viewWithTag:1];
+            [progessView setProgress:progress animated:NO];
+        }];
+        [self.tableView.myRefreshControl setStartBlock:^(UIView *refreshView) {
+            UIProgressView *progessView = (UIProgressView *)[refreshView viewWithTag:1];
+            [progessView setProgress:1.0];
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+                [progessView setTintColor:[UIColor greenColor]];
+            }
+        }];
+        [self.tableView.myRefreshControl setStopBlock:^(UIView *refreshView) {
+            UIProgressView *progessView = (UIProgressView *)[refreshView viewWithTag:1];
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+                [progessView setTintColor:[UIColor orangeColor]];
+            }
+            [progessView setProgress:0.0 animated:NO];
+        }];
+    });
+
 }
 
 - (IBAction)doRefresh:(id)sender {
-    [self.tableView.myRefreshControl start];
+    [self.tableView.myRefreshControl refreshAndScrollToTop];
 }
 
 - (void)setupLoadMore {
@@ -118,6 +143,38 @@
             }
         });
     } withDelay:0.0];
+    
+    //Here is a custom loadMoreControl
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(60.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [self.tableView.myLoadMoreControl setLoadMoreView:[self loadMoreView]];
+        [self.tableView.myLoadMoreControl setStartBlock:^(UIView *loadMoreView) {
+            [(UILabel *)loadMoreView setText:@"Loading..."];
+        }];
+        [self.tableView.myLoadMoreControl setStopBlock:^(UIView *loadMoreView) {
+            [(UILabel *)loadMoreView setText:@"Drop down LoadMore"];
+        }];
+        [self.tableView.myLoadMoreControl setFailBlock:^(UIView *loadMoreView) {
+            [(UILabel *)loadMoreView setText:@"Load fail!"];
+        }];
+        
+        [self.tableView.myLoadMoreControl setLoadMoreCallback:^(TMOTableView *tableView, DemoTableViewController *viewController) {
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if (viewController.numberOfRowsInSection1 > 50) {
+                    [tableView.myLoadMoreControl invalid:YES hide:NO];
+                    [(UILabel *)tableView.myLoadMoreControl.loadMoreView setText:@"All Data Loaded."];
+                }
+                else if (arc4random() % 10 < 4) {
+                    //try to fail
+                    [tableView.myLoadMoreControl fail];
+                }
+                else {
+                    viewController.numberOfRowsInSection1 += 10;
+                    [tableView.myLoadMoreControl done];
+                }
+            });
+        }];
+    });
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -165,8 +222,6 @@
 
 
 //And now you can customize refreshView & loadMoreView
-#pragma mark -
-#pragma mark - TMORefreshControlDelegate
 
 - (UIView *)refreshView {
     UIView *backgroundView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 88)];
@@ -180,49 +235,13 @@
     return backgroundView;
 }
 
-- (void)refreshViewInProcess:(UIView *)argCustomRefreshView withProcess:(CGFloat)argProcess {
-    UIProgressView *progessView = (UIProgressView *)[argCustomRefreshView viewWithTag:1];
-    [progessView setProgress:argProcess animated:NO];
-}
-
-- (void)refreshViewWillStartRefresh:(UIView *)argCustomRefreshView {
-    UIProgressView *progessView = (UIProgressView *)[argCustomRefreshView viewWithTag:1];
-    [progessView setProgress:1.0];
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-        [progessView setTintColor:[UIColor greenColor]];
-    }
-}
-
-- (void)refreshViewWillEndRefresh:(UIView *)argCustomRefreshView {
-    UIProgressView *progessView = (UIProgressView *)[argCustomRefreshView viewWithTag:1];
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-        [progessView setTintColor:[UIColor orangeColor]];
-    }
-    [progessView setProgress:0.0 animated:NO];
-}
-
-#pragma mark -
-#pragma mark - TMOLoadMoreControlDelegate
-
 - (UIView *)loadMoreView {
     UILabel *aLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 320, 88)];
     [aLabel setBackgroundColor:[UIColor whiteColor]];
     [aLabel setTextAlignment:NSTextAlignmentCenter];
     [aLabel setFont:[UIFont systemFontOfSize:18.0]];
-    [aLabel setText:@"有种你再拉啊！"];
+    [aLabel setText:@"Drop down LoadMore"];
     return aLabel;
-}
-
-- (void)loadMoreViewWillStartLoading:(UILabel *)argCustomView {
-    [argCustomView setText:@"讨厌，人家正在加载更多啦"];
-}
-
-- (void)loadMoreViewWillEndLoading:(UILabel *)argCustomView {
-    [argCustomView setText:@"有种你再拉啊！"];
-}
-
-- (void)loadMoreViewLoadFail:(UILabel *)argCustomView {
-    [argCustomView setText:@"人家累啦！"];
 }
 
 @end
