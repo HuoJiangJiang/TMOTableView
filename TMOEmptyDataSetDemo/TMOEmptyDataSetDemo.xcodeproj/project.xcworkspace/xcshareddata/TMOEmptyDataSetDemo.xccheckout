@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>87193772-D287-40AE-8B11-BCB4CDC66563</string>
+	<key>IDESourceControlProjectName</key>
+	<string>TMOEmptyDataSetDemo</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>0D241365-B4DE-4161-B26E-283BEDE19595</key>
+		<string>https://github.com/duowan/TMOTableView.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>TMOEmptyDataSetDemo/TMOEmptyDataSetDemo.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>0D241365-B4DE-4161-B26E-283BEDE19595</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/duowan/TMOTableView.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>0D241365-B4DE-4161-B26E-283BEDE19595</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0D241365-B4DE-4161-B26E-283BEDE19595</string>
+			<key>IDESourceControlWCCName</key>
+			<string>TMOTableView</string>
+		</dict>
+	</array>
+</dict>
+</plist>

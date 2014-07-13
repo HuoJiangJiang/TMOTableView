@@ -3,6 +3,8 @@ TMOTableView
 
 TMOTableView includes RefreshControl LoadMoreControl FirstLoadControl, and you can customize it. It support iOS5+, support UIViewController &amp; UITableViewController.
 
+* V1.1 Released! We reconstruct whole project, make it much more readable. And we add one more demo, TMOEmptyDataSetDemo, it's really easy to use rather than DNZEmptyDataSet.
+
 # Usage
 
 ## Pod
@@ -19,7 +21,7 @@ TMOTableView includes RefreshControl LoadMoreControl FirstLoadControl, and you c
 
 ## Use FirstLoadControl
 
-![](https://raw.githubusercontent.com/duowan/TMOTableView/master/Wiki/1.gif)
+![](https://raw.githubusercontent.com/duowan/TMOTableView/master/Wiki/1.gif) ![](https://raw.githubusercontent.com/duowan/TMOTableView/master/Wiki/4.gif)
 
 * You use FirstLoadControl to avoid null content showed, and perform good user experience. We provide a  default loadingView, and we provide a default failView. Further more, you could custom it.
 
@@ -54,7 +56,7 @@ TMOTableView includes RefreshControl LoadMoreControl FirstLoadControl, and you c
     [self.tableView refreshWithCallback:^(TMOTableView *tableView, DemoTableViewController *viewController) {
         viewController.numberOfRowsInSection0 = arc4random() % 10;
         viewController.numberOfRowsInSection1 = arc4random() % 10;
-        [tableView refreshDone];
+        [tableView.myRefreshControl done];
     } withDelay:1.5];//Really easy to use.
     //Don't use self in block! Use tableView, viewController. It will 'Circular references'.
 
@@ -72,11 +74,11 @@ TMOTableView includes RefreshControl LoadMoreControl FirstLoadControl, and you c
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (arc4random() % 10 < 4) {
                 //try to fail
-                tableView.myLoadMoreControl.isFail = YES;
+                [tableView.myLoadMoreControl fail];
             }
             else {
                 viewController.numberOfRowsInSection1 += 10;
-                [tableView loadMoreDone];
+                [tableView.myLoadMoreControl done];
             }
         });
     } withDelay:0.0];
