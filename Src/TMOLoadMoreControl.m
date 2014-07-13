@@ -34,10 +34,6 @@
     
 }
 
-- (void)removeObserver {
-    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
-}
-
 - (id)initWithTableView:(TMOTableView *)argTabelView {
     self = [super initWithFrame:CGRectMake(0, 0, argTabelView.frame.size.width, 44)];
     if (self) {
@@ -86,7 +82,7 @@
         TMOSVGArrowDownView *arrowDown = [[TMOSVGArrowDownView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width/2-22.0, 0, 44, 44)];
         arrowDown.backgroundColor = [UIColor whiteColor];
         [_retryView addSubview:arrowDown];
-        [_retryView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleRetryButtonTapped)]];
+        [_retryView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(retry)]];
         arrowDown.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         _retryView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     }
@@ -202,7 +198,7 @@
     });
 }
 
-- (void)handleRetryButtonTapped {
+- (void)retry {
     _isFail = NO;
     [self setAlpha:1.0];
     [self start];

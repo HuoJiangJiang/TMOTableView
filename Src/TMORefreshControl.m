@@ -27,10 +27,6 @@
     
 }
 
-- (void)removeObserver {
-    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
-}
-
 - (instancetype)initWithTableView:(TMOTableView *)argTabelView {
     self = [super initWithFrame:CGRectMake(0, 0, argTabelView.frame.size.width, 60)];
     if (self) {

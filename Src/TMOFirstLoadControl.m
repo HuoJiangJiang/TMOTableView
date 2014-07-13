@@ -28,8 +28,8 @@
     if (self) {
         self.yOffset = 44.0;
         self.tableView = argTabelView;
-        [self setup];
-        [self performSelector:@selector(start) withObject:nil afterDelay:0.05];
+        [self performSelector:@selector(setup) withObject:nil afterDelay:0.05];
+        [self performSelector:@selector(start) withObject:nil afterDelay:0.10];
     }
     return self;
 }

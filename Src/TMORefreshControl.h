@@ -33,7 +33,5 @@
 
 - (void)fail;
 
-- (void)removeObserver;
-
 @end
 

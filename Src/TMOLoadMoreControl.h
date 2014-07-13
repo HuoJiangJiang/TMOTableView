@@ -33,17 +33,8 @@
 
 - (void)fail;
 
-- (void)handleRetryButtonTapped;
+- (void)retry;
 
 - (void)invalid:(BOOL)isInvalid hide:(BOOL)isHide;
-
-- (void)removeObserver;
-
-//- (void)stop;
-
-//@property (nonatomic, weak) id<TMOLoadMoreControlDelegate> delegate;
-
-
-
 
 @end

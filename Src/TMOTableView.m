@@ -19,10 +19,10 @@
 
 - (void)dealloc {
     if (self.myRefreshControl != nil) {
-        [self.myRefreshControl removeObserver];
+        [self removeObserver:self.myRefreshControl forKeyPath:@"contentOffset"];
     }
     if (self.myLoadMoreControl != nil) {
-        [self.myLoadMoreControl removeObserver];
+        [self removeObserver:self.myLoadMoreControl forKeyPath:@"contentOffset"];
     }
 }
 
@@ -82,27 +82,6 @@
     self.myFirstLoadControl.callback = argBlock;
     self.myFirstLoadControl.yOffset = argYOffset;
 }
-
-//
-//- (void)refreshDone {
-//    if (!self.isValid) {
-//        return;
-//    }
-//    [self reloadData];
-//    [self.myRefreshControl performSelector:@selector(stop) withObject:nil afterDelay:0.5];
-//}
-//
-//- (void)loadMoreDone {
-//    if (!self.isValid) {
-//        return;
-//    }
-//    if (self.myLoadMoreControl != nil && self.myLoadMoreControl.isInvalid == YES) {
-//        [self.myLoadMoreControl stop];
-//        return;
-//    }
-//    [self reloadData];
-//    [self.myLoadMoreControl stop];
-//}
 
 - (void)refreshWithCallback:(TMOTableviewCallback)argCallback withDelay:(NSTimeInterval)argDelay {
     _myRefreshControl = [[TMORefreshControl alloc] initWithTableView:self];
