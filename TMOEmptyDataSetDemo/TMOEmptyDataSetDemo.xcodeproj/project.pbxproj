@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7D12C00F197395E400DF241B /* TMOFirstLoadControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D12C005197395E400DF241B /* TMOFirstLoadControl.m */; };
+		7D12C010197395E400DF241B /* TMOLoadMoreControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D12C007197395E400DF241B /* TMOLoadMoreControl.m */; };
+		7D12C011197395E400DF241B /* TMORefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D12C009197395E400DF241B /* TMORefreshControl.m */; };
+		7D12C012197395E400DF241B /* TMOTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D12C00B197395E400DF241B /* TMOTableView.m */; };
+		7D12C013197395E400DF241B /* XHActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D12C00E197395E400DF241B /* XHActivityIndicatorView.m */; };
 		F0DF87181972381500361668 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DF87171972381500361668 /* Foundation.framework */; };
 		F0DF871A1972381500361668 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DF87191972381500361668 /* CoreGraphics.framework */; };
 		F0DF871C1972381500361668 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0DF871B1972381500361668 /* UIKit.framework */; };
@@ -24,11 +29,6 @@
 		F0DF8751197239E400361668 /* placeholder_facebook@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = F0DF874F197239E400361668 /* placeholder_facebook@2x.png */; };
 		F0DF875319723A0A00361668 /* FacebookFail.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0DF875219723A0A00361668 /* FacebookFail.xib */; };
 		F0DF875919723B7900361668 /* DemoFacebookTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0DF875819723B7900361668 /* DemoFacebookTableViewController.m */; };
-		F0DF876619723C3900361668 /* TMOFirstLoadControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F0DF875C19723C3900361668 /* TMOFirstLoadControl.m */; };
-		F0DF876719723C3900361668 /* TMOLoadMoreControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F0DF875E19723C3900361668 /* TMOLoadMoreControl.m */; };
-		F0DF876819723C3900361668 /* TMORefreshControl.m in Sources */ = {isa = PBXBuildFile; fileRef = F0DF876019723C3900361668 /* TMORefreshControl.m */; };
-		F0DF876919723C3900361668 /* TMOTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0DF876219723C3900361668 /* TMOTableView.m */; };
-		F0DF876A19723C3900361668 /* XHActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = F0DF876519723C3900361668 /* XHActivityIndicatorView.m */; };
 		F0DF876C19723CED00361668 /* FacebookLoading.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0DF876B19723CED00361668 /* FacebookLoading.xib */; };
 		F0DF8770197242F400361668 /* DemoAirbnbTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0DF876F197242F400361668 /* DemoAirbnbTableViewController.m */; };
 		F0DF87721972435F00361668 /* AirbnbFail.xib in Resources */ = {isa = PBXBuildFile; fileRef = F0DF87711972435F00361668 /* AirbnbFail.xib */; };
@@ -47,6 +47,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7D12C004197395E400DF241B /* TMOFirstLoadControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOFirstLoadControl.h; sourceTree = "<group>"; };
+		7D12C005197395E400DF241B /* TMOFirstLoadControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFirstLoadControl.m; sourceTree = "<group>"; };
+		7D12C006197395E400DF241B /* TMOLoadMoreControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOLoadMoreControl.h; sourceTree = "<group>"; };
+		7D12C007197395E400DF241B /* TMOLoadMoreControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOLoadMoreControl.m; sourceTree = "<group>"; };
+		7D12C008197395E400DF241B /* TMORefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMORefreshControl.h; sourceTree = "<group>"; };
+		7D12C009197395E400DF241B /* TMORefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMORefreshControl.m; sourceTree = "<group>"; };
+		7D12C00A197395E400DF241B /* TMOTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOTableView.h; sourceTree = "<group>"; };
+		7D12C00B197395E400DF241B /* TMOTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOTableView.m; sourceTree = "<group>"; };
+		7D12C00C197395E400DF241B /* TMOTableViewDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOTableViewDefines.h; sourceTree = "<group>"; };
+		7D12C00D197395E400DF241B /* XHActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHActivityIndicatorView.h; sourceTree = "<group>"; };
+		7D12C00E197395E400DF241B /* XHActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHActivityIndicatorView.m; sourceTree = "<group>"; };
 		F0DF87141972381500361668 /* TMOEmptyDataSetDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TMOEmptyDataSetDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0DF87171972381500361668 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		F0DF87191972381500361668 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -69,17 +80,6 @@
 		F0DF875219723A0A00361668 /* FacebookFail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FacebookFail.xib; sourceTree = "<group>"; };
 		F0DF875719723B7900361668 /* DemoFacebookTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoFacebookTableViewController.h; sourceTree = "<group>"; };
 		F0DF875819723B7900361668 /* DemoFacebookTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoFacebookTableViewController.m; sourceTree = "<group>"; };
-		F0DF875B19723C3900361668 /* TMOFirstLoadControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOFirstLoadControl.h; sourceTree = "<group>"; };
-		F0DF875C19723C3900361668 /* TMOFirstLoadControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOFirstLoadControl.m; sourceTree = "<group>"; };
-		F0DF875D19723C3900361668 /* TMOLoadMoreControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOLoadMoreControl.h; sourceTree = "<group>"; };
-		F0DF875E19723C3900361668 /* TMOLoadMoreControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOLoadMoreControl.m; sourceTree = "<group>"; };
-		F0DF875F19723C3900361668 /* TMORefreshControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMORefreshControl.h; sourceTree = "<group>"; };
-		F0DF876019723C3900361668 /* TMORefreshControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMORefreshControl.m; sourceTree = "<group>"; };
-		F0DF876119723C3900361668 /* TMOTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOTableView.h; sourceTree = "<group>"; };
-		F0DF876219723C3900361668 /* TMOTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TMOTableView.m; sourceTree = "<group>"; };
-		F0DF876319723C3900361668 /* TMOTableViewDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TMOTableViewDefines.h; sourceTree = "<group>"; };
-		F0DF876419723C3900361668 /* XHActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHActivityIndicatorView.h; sourceTree = "<group>"; };
-		F0DF876519723C3900361668 /* XHActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHActivityIndicatorView.m; sourceTree = "<group>"; };
 		F0DF876B19723CED00361668 /* FacebookLoading.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FacebookLoading.xib; sourceTree = "<group>"; };
 		F0DF876E197242F400361668 /* DemoAirbnbTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DemoAirbnbTableViewController.h; sourceTree = "<group>"; };
 		F0DF876F197242F400361668 /* DemoAirbnbTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DemoAirbnbTableViewController.m; sourceTree = "<group>"; };
@@ -112,10 +112,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7D12C003197395E400DF241B /* Src */ = {
+			isa = PBXGroup;
+			children = (
+				7D12C004197395E400DF241B /* TMOFirstLoadControl.h */,
+				7D12C005197395E400DF241B /* TMOFirstLoadControl.m */,
+				7D12C006197395E400DF241B /* TMOLoadMoreControl.h */,
+				7D12C007197395E400DF241B /* TMOLoadMoreControl.m */,
+				7D12C008197395E400DF241B /* TMORefreshControl.h */,
+				7D12C009197395E400DF241B /* TMORefreshControl.m */,
+				7D12C00A197395E400DF241B /* TMOTableView.h */,
+				7D12C00B197395E400DF241B /* TMOTableView.m */,
+				7D12C00C197395E400DF241B /* TMOTableViewDefines.h */,
+				7D12C00D197395E400DF241B /* XHActivityIndicatorView.h */,
+				7D12C00E197395E400DF241B /* XHActivityIndicatorView.m */,
+			);
+			name = Src;
+			path = ../Src;
+			sourceTree = "<group>";
+		};
 		F0DF870B1972381500361668 = {
 			isa = PBXGroup;
 			children = (
-				F0DF875A19723C3900361668 /* Src */,
+				7D12C003197395E400DF241B /* Src */,
 				F0DF874C1972399B00361668 /* Resources */,
 				F0DF871D1972381500361668 /* TMOEmptyDataSetDemo */,
 				F0DF873C1972381600361668 /* TMOEmptyDataSetDemoTests */,
@@ -205,24 +224,6 @@
 				F0DF875219723A0A00361668 /* FacebookFail.xib */,
 			);
 			path = Facebook;
-			sourceTree = "<group>";
-		};
-		F0DF875A19723C3900361668 /* Src */ = {
-			isa = PBXGroup;
-			children = (
-				F0DF875B19723C3900361668 /* TMOFirstLoadControl.h */,
-				F0DF875C19723C3900361668 /* TMOFirstLoadControl.m */,
-				F0DF875D19723C3900361668 /* TMOLoadMoreControl.h */,
-				F0DF875E19723C3900361668 /* TMOLoadMoreControl.m */,
-				F0DF875F19723C3900361668 /* TMORefreshControl.h */,
-				F0DF876019723C3900361668 /* TMORefreshControl.m */,
-				F0DF876119723C3900361668 /* TMOTableView.h */,
-				F0DF876219723C3900361668 /* TMOTableView.m */,
-				F0DF876319723C3900361668 /* TMOTableViewDefines.h */,
-				F0DF876419723C3900361668 /* XHActivityIndicatorView.h */,
-				F0DF876519723C3900361668 /* XHActivityIndicatorView.m */,
-			);
-			path = Src;
 			sourceTree = "<group>";
 		};
 		F0DF876D197242E600361668 /* Airbnb */ = {
@@ -342,15 +343,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7D12C00F197395E400DF241B /* TMOFirstLoadControl.m in Sources */,
 				F0DF87241972381500361668 /* main.m in Sources */,
-				F0DF876A19723C3900361668 /* XHActivityIndicatorView.m in Sources */,
+				7D12C011197395E400DF241B /* TMORefreshControl.m in Sources */,
 				F0DF8770197242F400361668 /* DemoAirbnbTableViewController.m in Sources */,
-				F0DF876619723C3900361668 /* TMOFirstLoadControl.m in Sources */,
-				F0DF876919723C3900361668 /* TMOTableView.m in Sources */,
-				F0DF876819723C3900361668 /* TMORefreshControl.m in Sources */,
-				F0DF876719723C3900361668 /* TMOLoadMoreControl.m in Sources */,
+				7D12C012197395E400DF241B /* TMOTableView.m in Sources */,
 				F0DF87281972381500361668 /* DemoAppDelegate.m in Sources */,
 				F0DF875919723B7900361668 /* DemoFacebookTableViewController.m in Sources */,
+				7D12C013197395E400DF241B /* XHActivityIndicatorView.m in Sources */,
+				7D12C010197395E400DF241B /* TMOLoadMoreControl.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -557,6 +558,7 @@
 				F0DF87481972381600361668 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F0DF87491972381600361668 /* Build configuration list for PBXNativeTarget "TMOEmptyDataSetDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -565,6 +567,7 @@
 				F0DF874B1972381600361668 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
