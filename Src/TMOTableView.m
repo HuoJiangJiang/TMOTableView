@@ -74,6 +74,8 @@
     self.myFirstLoadControl.callback = argBlock;
     self.myFirstLoadControl.loadingView = argLoadingView;
     self.myFirstLoadControl.failView = argFailView;
+    [self.myFirstLoadControl setup];
+    [self.myFirstLoadControl start];
 }
 
 - (void)firstLoadWithBlock:(TMOTableviewCallback)argBlock
@@ -81,6 +83,8 @@
     _myFirstLoadControl = [[TMOFirstLoadControl alloc] initWithTableView:self];
     self.myFirstLoadControl.callback = argBlock;
     self.myFirstLoadControl.yOffset = argYOffset;
+    [self.myFirstLoadControl setup];
+    [self.myFirstLoadControl start];
 }
 
 - (void)refreshWithCallback:(TMOTableviewCallback)argCallback withDelay:(NSTimeInterval)argDelay {

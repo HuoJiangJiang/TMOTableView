@@ -31,4 +31,6 @@
 
 - (void)fail;
 
+- (void)setup;
+
 @end
