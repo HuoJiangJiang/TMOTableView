@@ -15,19 +15,19 @@
 
 @property (nonatomic, strong) UIView *loadMoreView;
 
-@property (nonatomic, strong) TMOTableviewCallback loadMoreCallback;
+@property (nonatomic, copy) TMOTableviewCallback loadMoreCallback;
 
 - (void)setLoadMoreCallback:(TMOTableviewCallback)loadMoreCallback;
 
-@property (nonatomic, strong) TMOLoadMoreStartBlock startBlock;
+@property (nonatomic, copy) TMOLoadMoreStartBlock startBlock;
 
 - (void)setStartBlock:(TMOLoadMoreStartBlock)startBlock;
 
-@property (nonatomic, strong) TMOLoadMoreStopBlock stopBlock;
+@property (nonatomic, copy) TMOLoadMoreStopBlock stopBlock;
 
 - (void)setStopBlock:(TMOLoadMoreStopBlock)stopBlock;
 
-@property (nonatomic, strong) TMOLoadMoreFailBlock failBlock;
+@property (nonatomic, copy) TMOLoadMoreFailBlock failBlock;
 
 - (void)setFailBlock:(TMOLoadMoreFailBlock)failBlock;
 

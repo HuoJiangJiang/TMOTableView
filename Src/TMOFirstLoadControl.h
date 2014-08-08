@@ -13,7 +13,7 @@
 
 @interface TMOFirstLoadControl : NSObject
 
-@property (nonatomic, strong) TMOTableviewCallback callback;
+@property (nonatomic, copy) TMOTableviewCallback callback;
 
 @property (nonatomic, strong) UIView *loadingView;
 

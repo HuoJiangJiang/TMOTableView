@@ -15,19 +15,19 @@
 
 @property (nonatomic, strong) UIView *refreshView;
 
-@property (nonatomic, strong) TMOTableviewCallback refreshCallback;
+@property (nonatomic, copy) TMOTableviewCallback refreshCallback;
 
 - (void)setRefreshCallback:(TMOTableviewCallback)refreshCallback;
 
-@property (nonatomic, strong) TMORefreshProcessingBlock processingBlock;
+@property (nonatomic, copy) TMORefreshProcessingBlock processingBlock;
 
 - (void)setProcessingBlock:(TMORefreshProcessingBlock)processingBlock;
 
-@property (nonatomic, strong) TMORefreshStartBlock startBlock;
+@property (nonatomic, copy) TMORefreshStartBlock startBlock;
 
 - (void)setStartBlock:(TMORefreshStartBlock)startBlock;
 
-@property (nonatomic, strong) TMORefreshStopBlock stopBlock;
+@property (nonatomic, copy) TMORefreshStopBlock stopBlock;
 
 - (void)setStopBlock:(TMORefreshStopBlock)stopBlock;
 
