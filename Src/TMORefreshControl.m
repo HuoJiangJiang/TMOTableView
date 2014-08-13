@@ -59,7 +59,7 @@
     self.frame = CGRectMake(0, 0, self.tableView.frame.size.width, 60);
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth;
     _controlViewHeight = 60;
-    self.activityView = [[XHActivityIndicatorView alloc] initWithFrame:CGRectMake(22, 22, 44, 44)];
+    self.activityView = [[XHActivityIndicatorView alloc] initWithFrame:CGRectMake(22, 28, 44, 44)];
     self.activityView.tintColor = [UIColor grayColor];
     
     UIView *activityParentView = [[UIView alloc] initWithFrame:CGRectMake(self.tableView.frame.size.width/2-22.0, 0, 44, 44)];
@@ -102,7 +102,8 @@
                 [self.activityView beginRefreshing];
             }
             
-            [self start];
+            [self performSelector:@selector(fingerReleaseCheck:) withObject:nil afterDelay:0.10];
+
         }
         
         if (!self.isRefreshing) {
@@ -140,6 +141,25 @@
     }
 }
 
+- (void)fingerReleaseCheck:(NSNumber *)timeUse {
+    if ([timeUse floatValue] > 3.0) {
+        [self stop];
+    }
+    else {
+        if (self.tableView.contentOffset.y > -_controlViewHeight &&
+            self.tableView.contentOffset.y + _controlViewHeight < _controlViewHeight/2) {
+            [self start];
+        }
+        else if (self.tableView.contentOffset.y >= 0) {
+            [self stop];
+        }
+        else {
+            timeUse = @([timeUse floatValue] + 0.10);
+            [self performSelector:@selector(fingerReleaseCheck:) withObject:timeUse afterDelay:0.10];
+        }
+    }
+}
+
 - (void)start {
     if (self.refreshCallback != nil) {
         if (self.refreshDelay > 0) {
@@ -158,7 +178,7 @@
         return;
     }
     [self.tableView reloadData];
-    [self performSelector:@selector(stop) withObject:nil afterDelay:0.5];
+    [self stop];
 }
 
 - (void)fail {
