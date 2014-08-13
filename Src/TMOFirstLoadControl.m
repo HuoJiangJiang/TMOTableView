@@ -65,6 +65,13 @@
 
 - (void)done {
     if ([self.tableView isTableViewController]) {
+        if (self.tmpHeaderView == self.tableView.tableHeaderView) {
+            self.tableView.scrollEnabled = YES;
+            if ([self.tableView isValid]) {
+                [self.tableView reloadData];
+            }
+            return;
+        }
         [UIView animateWithDuration:0.15 animations:^{
             self.tableView.tableHeaderView.alpha = 0.0;
         } completion:^(BOOL finished) {
