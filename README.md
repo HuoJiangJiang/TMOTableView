@@ -3,6 +3,8 @@ TMOTableView
 
 TMOTableView includes RefreshControl LoadMoreControl FirstLoadControl, and you can customize it. It support iOS5+, support UIViewController &amp; UITableViewController.
 
+* [2014/08/13] V1.1.3 Released! Fix RefreshControl and FirstControl Bug.
+
 * V1.1 Released! We reconstruct whole project, make it much more readable. And we add one more demo, TMOEmptyDataSetDemo, it's really easy to use rather than DNZEmptyDataSet.
 
 # Usage
